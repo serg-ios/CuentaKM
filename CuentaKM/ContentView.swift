@@ -8,13 +8,29 @@
 import SwiftUI
 
 struct ContentView: View {
+    /// Updates the view with CLLocationManagerDelegate events
+    @StateObject var locationManager: LocationManager
+    
+    init(locationManager: LocationManager = .init()) {
+        self._locationManager = StateObject(wrappedValue: locationManager)
+    }
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            switch self.locationManager.authorizationStatus {
+            case .authorizedAlways, .authorizedWhenInUse:
+                Text("Authorized")
+            case .denied:
+                Text("Denied")
+            case .notDetermined:
+                Text("Not determined")
+            case .restricted:
+                Text("Restricted")
+            @unknown default:
+                Text("Unexpected authorization status: \(self.locationManager.authorizationStatus.rawValue)")
+            }
         }
+        .onAppear { self.locationManager.requestAlwaysAuthorization() }
     }
 }
 
