@@ -11,17 +11,20 @@ import Foundation
 final class MockCLLocationManager: CLLocationManager {
     private let authorizationStatusMock: CLAuthorizationStatus
     private let requestAlwaysAuthorizationMock: () -> Void
+    private let startUpdatingLocationMock: () -> Void
 
     private var desiredAccuracyMock: CLLocationAccuracy
     
     init(
         authorizationStatus: CLAuthorizationStatus = .notDetermined,
         desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyReduced,
-        requestAlwaysAuthorization: @escaping () -> Void = {}
+        requestAlwaysAuthorization: @escaping () -> Void = {},
+        startUpdatingLocation: @escaping () -> Void = {}
     ) {
         self.authorizationStatusMock = authorizationStatus
         self.desiredAccuracyMock = desiredAccuracy
         self.requestAlwaysAuthorizationMock = requestAlwaysAuthorization
+        self.startUpdatingLocationMock = startUpdatingLocation
     }
     
     override var authorizationStatus: CLAuthorizationStatus { self.authorizationStatusMock }
@@ -31,4 +34,5 @@ final class MockCLLocationManager: CLLocationManager {
     }
     
     override func requestAlwaysAuthorization() { self.requestAlwaysAuthorizationMock() }
+    override func startUpdatingLocation() { self.startUpdatingLocationMock() }
 }

@@ -46,4 +46,32 @@ final class CuentaKM_UnitTests: XCTestCase {
         let locationManager = LocationManager(locationManager: mockLocationManager)
         XCTAssertEqual(locationManager.desiredAccuracy, kCLLocationAccuracyBest)
     }
+    
+    /// Tests that the location starts updating in the location manager init
+    func testLocationManager_whenInit_startsUpdatingLocation() {
+        let startUpdatingLocationExpectation = expectation(
+            description: "startUpdatingLocation() called"
+        )
+        let mockLocationManager = MockCLLocationManager(startUpdatingLocation: {
+            startUpdatingLocationExpectation.fulfill()
+        })
+        let _ = LocationManager(locationManager: mockLocationManager)
+        wait(for: [startUpdatingLocationExpectation], timeout: 1)
+    }
+    
+    /// Tests the original speed gets updated (in km per hour) when location is updated
+    func testLocationManagerSpeed_whenLocationUpdated_isPublished() {
+        var cancellables = Set<AnyCancellable>()
+        var speeds: [Double] = []
+        let mockLocationManager = MockCLLocationManager()
+        let locationManager = LocationManager(locationManager: mockLocationManager, speed: 5)
+        locationManager.$speed.sink {
+            speeds.append($0)
+        }.store(in: &cancellables)
+        XCTAssertEqual(speeds, [5])
+        mockLocationManager.delegate?.locationManager?(mockLocationManager, didUpdateLocations: [.init(
+            coordinate: .init(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: 1, timestamp: .now
+        )])
+        XCTAssertEqual(speeds, [5, 3.6])
+    }
 }
