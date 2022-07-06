@@ -13,6 +13,7 @@
 		49C72D3E2874981100665FD0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C72D3D2874981100665FD0 /* Preview Assets.xcassets */; };
 		49C72D652874AE3200665FD0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D642874AE3200665FD0 /* LocationManager.swift */; };
 		49C72D6D2874E13400665FD0 /* CuentaKM_UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D6C2874E13400665FD0 /* CuentaKM_UnitTests.swift */; };
+		49C72D752874F18200665FD0 /* MockCLLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D742874F18200665FD0 /* MockCLLocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		49C72D642874AE3200665FD0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		49C72D6A2874E13400665FD0 /* CuentaKM_UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuentaKM_UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C72D6C2874E13400665FD0 /* CuentaKM_UnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuentaKM_UnitTests.swift; sourceTree = "<group>"; };
+		49C72D742874F18200665FD0 /* MockCLLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCLLocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 		49C72D342874981000665FD0 /* CuentaKM */ = {
 			isa = PBXGroup;
 			children = (
+				49C72D732874F16700665FD0 /* Mocks */,
 				49C72D352874981000665FD0 /* CuentaKMApp.swift */,
 				49C72D372874981000665FD0 /* ContentView.swift */,
 				49C72D642874AE3200665FD0 /* LocationManager.swift */,
@@ -100,6 +103,14 @@
 				49C72D6C2874E13400665FD0 /* CuentaKM_UnitTests.swift */,
 			);
 			path = CuentaKM_UnitTests;
+			sourceTree = "<group>";
+		};
+		49C72D732874F16700665FD0 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				49C72D742874F18200665FD0 /* MockCLLocationManager.swift */,
+			);
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,6 +216,7 @@
 				49C72D382874981000665FD0 /* ContentView.swift in Sources */,
 				49C72D362874981000665FD0 /* CuentaKMApp.swift in Sources */,
 				49C72D652874AE3200665FD0 /* LocationManager.swift in Sources */,
+				49C72D752874F18200665FD0 /* MockCLLocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
