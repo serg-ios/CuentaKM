@@ -19,7 +19,7 @@ struct ContentView: View {
         VStack {
             switch self.locationManager.authorizationStatus {
             case .authorizedAlways, .authorizedWhenInUse:
-                Text("Authorized")
+                Text("\(self.locationManager.speed)")
             case .denied:
                 Text("Denied")
             case .notDetermined:
@@ -36,6 +36,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(locationManager: .init(locationManager: MockCLLocationManager(authorizationStatus: .restricted)))
+        ContentView(locationManager: .init(locationManager: MockCLLocationManager(authorizationStatus: .authorizedAlways)))
     }
 }
