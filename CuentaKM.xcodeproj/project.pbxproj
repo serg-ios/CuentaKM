@@ -12,7 +12,18 @@
 		49C72D3A2874981100665FD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C72D392874981100665FD0 /* Assets.xcassets */; };
 		49C72D3E2874981100665FD0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C72D3D2874981100665FD0 /* Preview Assets.xcassets */; };
 		49C72D652874AE3200665FD0 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D642874AE3200665FD0 /* LocationManager.swift */; };
+		49C72D6D2874E13400665FD0 /* CuentaKM_UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D6C2874E13400665FD0 /* CuentaKM_UnitTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		49C72D6E2874E13400665FD0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C72D2A2874981000665FD0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49C72D312874981000665FD0;
+			remoteInfo = CuentaKM;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		49C72D322874981000665FD0 /* CuentaKM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuentaKM.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -22,10 +33,19 @@
 		49C72D3B2874981100665FD0 /* CuentaKM.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CuentaKM.entitlements; sourceTree = "<group>"; };
 		49C72D3D2874981100665FD0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		49C72D642874AE3200665FD0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		49C72D6A2874E13400665FD0 /* CuentaKM_UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CuentaKM_UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C72D6C2874E13400665FD0 /* CuentaKM_UnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuentaKM_UnitTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		49C72D2F2874981000665FD0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C72D672874E13400665FD0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -39,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				49C72D342874981000665FD0 /* CuentaKM */,
+				49C72D6B2874E13400665FD0 /* CuentaKM_UnitTests */,
 				49C72D332874981000665FD0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -47,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				49C72D322874981000665FD0 /* CuentaKM.app */,
+				49C72D6A2874E13400665FD0 /* CuentaKM_UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +94,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		49C72D6B2874E13400665FD0 /* CuentaKM_UnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				49C72D6C2874E13400665FD0 /* CuentaKM_UnitTests.swift */,
+			);
+			path = CuentaKM_UnitTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -92,6 +122,24 @@
 			productReference = 49C72D322874981000665FD0 /* CuentaKM.app */;
 			productType = "com.apple.product-type.application";
 		};
+		49C72D692874E13400665FD0 /* CuentaKM_UnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49C72D702874E13400665FD0 /* Build configuration list for PBXNativeTarget "CuentaKM_UnitTests" */;
+			buildPhases = (
+				49C72D662874E13400665FD0 /* Sources */,
+				49C72D672874E13400665FD0 /* Frameworks */,
+				49C72D682874E13400665FD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				49C72D6F2874E13400665FD0 /* PBXTargetDependency */,
+			);
+			name = CuentaKM_UnitTests;
+			productName = CuentaKM_UnitTests;
+			productReference = 49C72D6A2874E13400665FD0 /* CuentaKM_UnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -104,6 +152,10 @@
 				TargetAttributes = {
 					49C72D312874981000665FD0 = {
 						CreatedOnToolsVersion = 14.0;
+					};
+					49C72D692874E13400665FD0 = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = 49C72D312874981000665FD0;
 					};
 				};
 			};
@@ -121,6 +173,7 @@
 			projectRoot = "";
 			targets = (
 				49C72D312874981000665FD0 /* CuentaKM */,
+				49C72D692874E13400665FD0 /* CuentaKM_UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -132,6 +185,13 @@
 			files = (
 				49C72D3E2874981100665FD0 /* Preview Assets.xcassets in Resources */,
 				49C72D3A2874981100665FD0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C72D682874E13400665FD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +208,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49C72D662874E13400665FD0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C72D6D2874E13400665FD0 /* CuentaKM_UnitTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		49C72D6F2874E13400665FD0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49C72D312874981000665FD0 /* CuentaKM */;
+			targetProxy = 49C72D6E2874E13400665FD0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		49C72D552874981100665FD0 /* Debug */ = {
@@ -328,6 +404,47 @@
 			};
 			name = Release;
 		};
+		49C72D712874E13400665FD0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U4SDDHNW98;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.serg-ios.CuentaKM-UnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuentaKM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CuentaKM";
+			};
+			name = Debug;
+		};
+		49C72D722874E13400665FD0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = U4SDDHNW98;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.serg-ios.CuentaKM-UnitTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CuentaKM.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CuentaKM";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -345,6 +462,15 @@
 			buildConfigurations = (
 				49C72D582874981100665FD0 /* Debug */,
 				49C72D592874981100665FD0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49C72D702874E13400665FD0 /* Build configuration list for PBXNativeTarget "CuentaKM_UnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49C72D712874E13400665FD0 /* Debug */,
+				49C72D722874E13400665FD0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

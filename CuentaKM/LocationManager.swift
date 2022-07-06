@@ -14,14 +14,17 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     
     private let locationManager: CLLocationManager
     
-    init(locationManager: CLLocationManager = .init()) {
+    /// Desired accuracy of the CLLocationManager, is set on init
+    var desiredAccuracy: CLLocationAccuracy { self.locationManager.desiredAccuracy }
+    
+    init(locationManager: CLLocationManager = .init(), desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest) {
         self.locationManager = locationManager
         self.authorizationStatus = locationManager.authorizationStatus
         
         super.init()
         
         self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        self.locationManager.desiredAccuracy = desiredAccuracy
     }
     
     /// Calls CLLocationManager's requestAlwaysAuthorization()
