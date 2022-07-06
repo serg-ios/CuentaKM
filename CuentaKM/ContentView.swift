@@ -21,8 +21,9 @@ struct ContentView: View {
             case .authorizedAlways, .authorizedWhenInUse:
                 VStack {
                     Text("\(self.locationManager.speed, specifier: "%.1f")")
-                        .font(.system(size: 150, weight: .bold))
-                    Text("km/h").font(.largeTitle)
+                        .font(.system(size: UIFontMetrics.default.scaledValue(for: 150)))
+                    Text("km/h")
+                        .font(.system(size: UIFontMetrics.default.scaledValue(for: 50)))
                 }
                 .lineLimit(1)
                 .accessibilityElement(children: .combine)
