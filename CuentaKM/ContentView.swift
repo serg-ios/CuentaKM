@@ -16,44 +16,47 @@ struct ContentView: View {
     }
     
     var body: some View {
-        VStack {
-            switch self.locationManager.authorizationStatus {
-            case .authorizedAlways, .authorizedWhenInUse:
-                VStack {
-                    Text("\(self.locationManager.speed, specifier: "%.1f")")
-                        .font(.system(size: UIFontMetrics.default.scaledValue(for: 150)))
-                    Text("km/h")
-                        .font(.system(size: UIFontMetrics.default.scaledValue(for: 50)))
+        GeometryReader { geometry in
+            ScrollView {
+                switch self.locationManager.authorizationStatus {
+                case .authorizedAlways, .authorizedWhenInUse:
+                    VStack {
+                        Text("\(self.locationManager.speed, specifier: "%.1f")")
+                            .font(.system(size: UIFontMetrics.default.scaledValue(for: 150)))
+                            .fontWeight(.heavy)
+                        Text("km/h")
+                            .font(.system(size: UIFontMetrics.default.scaledValue(for: 50)))
+                            .fontWeight(.bold)
+                    }
+                    .accessibilityElement(children: .combine)
+                    .accessibilityLabel(NSLocalizedString("speed", comment: ""))
+                    .accessibilityValue(String.init(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
+                    .frame(minHeight: geometry.size.height)
+                case .denied:
+                    Text("auth_status_denied")
+                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                        .accessibilityValue("auth_status_denied")
+                case .notDetermined:
+                    Text("auth_status_not_determined")
+                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                        .accessibilityValue("auth_status_not_determined")
+                case .restricted:
+                    Text("auth_status_restricted")
+                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                        .accessibilityValue("auth_status_restricted")
+                @unknown default:
+                    Text(NSLocalizedString("auth_status", comment: "") + "\(self.locationManager.authorizationStatus.rawValue)")
+                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                        .accessibilityValue("\(self.locationManager.authorizationStatus.rawValue)")
                 }
-                .lineLimit(1)
-                .accessibilityElement(children: .combine)
-                .accessibilityLabel(NSLocalizedString("speed", comment: ""))
-                .accessibilityValue(String.init(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
-            case .denied:
-                Text("auth_status_denied")
-                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                    .accessibilityValue("auth_status_denied")
-            case .notDetermined:
-                Text("auth_status_not_determined")
-                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                    .accessibilityValue("auth_status_not_determined")
-            case .restricted:
-                Text("auth_status_restricted")
-                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                    .accessibilityValue("auth_status_restricted")
-            @unknown default:
-                Text(NSLocalizedString("auth_status", comment: "") + "\(self.locationManager.authorizationStatus.rawValue)")
-                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                    .accessibilityValue("\(self.locationManager.authorizationStatus.rawValue)")
             }
+            .padding(.horizontal)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(.black)
+            .foregroundColor(.white)
+            .multilineTextAlignment(.center)
+            .onAppear { self.locationManager.requestAlwaysAuthorization() }
         }
-        .padding(.horizontal)
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(.black)
-        .foregroundColor(.white)
-        .minimumScaleFactor(0.01)
-        .multilineTextAlignment(.center)
-        .onAppear { self.locationManager.requestAlwaysAuthorization() }
     }
 }
 
