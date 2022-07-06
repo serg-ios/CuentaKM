@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  CuentaKM
+
+  Created by Sergio on 06/07/22.
+  
+*/
+
+/* No comment provided by engineer. */
+"auth_status" = "ESTADO DE AUTORIZACIÓN DE UBICACIÓN";
+
+/* No comment provided by engineer. */
+"auth_status_restricted" = "Esta aplicación no está autorizada a utilizar los servicios de localización. Debido a las restricciones activas en los servicios de localización, el usuario no puede cambiar este estado y no puede haber denegado personalmente la autorización.";
+
+/* No comment provided by engineer. */
+"auth_status_denied" = "El usuario ha denegado explícitamente la autorización para esta aplicación, o los servicios de ubicación están deshabilitados en Configuración.";
+
+/* No comment provided by engineer. */
+"auth_status_not_determined" = "El usuario aún no ha hecho una elección con respecto a esta aplicación.";
+

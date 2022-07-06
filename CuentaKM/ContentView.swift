@@ -26,13 +26,13 @@ struct ContentView: View {
                 }
                 .lineLimit(1)
             case .denied:
-                Text("LOCATION AUTH STATUS\n\nUser has explicitly denied authorization for this application, or location services are disabled in Settings.")
+                Text(NSLocalizedString("auth_status_denied", comment: ""))
             case .notDetermined:
-                Text("LOCATION AUTH STATUS\n\nUser has not yet made a choice with regards to this application.")
+                Text(NSLocalizedString("auth_status_not_determined", comment: ""))
             case .restricted:
-                Text("LOCATION AUTH STATUS\n\nThis application is not authorized to use location services. Due to active restrictions on location services, the user cannot change this status, and may not have personally denied authorization")
+                Text(NSLocalizedString("auth_status_restricted", comment: ""))
             @unknown default:
-                Text("LOCATION AUTH STATUS: \(self.locationManager.authorizationStatus.rawValue)")
+                Text(NSLocalizedString("auth_status", comment: "") + "\(self.locationManager.authorizationStatus.rawValue)")
             }
         }
         .padding(.horizontal)
