@@ -7,7 +7,7 @@
 */
 
 /* No comment provided by engineer. */
-"auth_status" = "LOCATION AUTH STATUS";
+"auth_status" = "LOCATION AUTHORIZATION STATUS";
 
 /* No comment provided by engineer. */
 "auth_status_restricted" = "This application is not authorized to use location services. Due to active restrictions on location services, the user cannot change this status, and may not have personally denied authorization.";
@@ -18,3 +18,8 @@
 /* No comment provided by engineer. */
 "auth_status_not_determined" = "User has not yet made a choice with regards to this application.";
 
+/* No comment provided by engineer. */
+"kmh" = "%.1f kilometers per hour";
+
+/* No comment provided by engineer. */
+"speed" = "speed";

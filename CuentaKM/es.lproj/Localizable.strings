@@ -18,3 +18,8 @@
 /* No comment provided by engineer. */
 "auth_status_not_determined" = "El usuario aún no ha hecho una elección con respecto a esta aplicación.";
 
+/* No comment provided by engineer. */
+"kmh" = "%.1f kilómetros por hora";
+
+/* No comment provided by engineer. */
+"speed" = "velocidad";

@@ -25,14 +25,25 @@ struct ContentView: View {
                     Text("km/h").font(.largeTitle)
                 }
                 .lineLimit(1)
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(NSLocalizedString("speed", comment: ""))
+                .accessibilityValue(String.init(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
             case .denied:
-                Text(NSLocalizedString("auth_status_denied", comment: ""))
+                Text("auth_status_denied")
+                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                    .accessibilityValue("auth_status_denied")
             case .notDetermined:
-                Text(NSLocalizedString("auth_status_not_determined", comment: ""))
+                Text("auth_status_not_determined")
+                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                    .accessibilityValue("auth_status_not_determined")
             case .restricted:
-                Text(NSLocalizedString("auth_status_restricted", comment: ""))
+                Text("auth_status_restricted")
+                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                    .accessibilityValue("auth_status_restricted")
             @unknown default:
                 Text(NSLocalizedString("auth_status", comment: "") + "\(self.locationManager.authorizationStatus.rawValue)")
+                    .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                    .accessibilityValue("\(self.locationManager.authorizationStatus.rawValue)")
             }
         }
         .padding(.horizontal)
