@@ -30,7 +30,7 @@ struct ContentView: View {
                     }
                     .accessibilityElement(children: .combine)
                     .accessibilityLabel(NSLocalizedString("speed", comment: ""))
-                    .accessibilityValue(String.init(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
+                    .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
                     .frame(minHeight: geometry.size.height)
                 case .denied:
                     Text("auth_status_denied")
@@ -56,6 +56,12 @@ struct ContentView: View {
             .foregroundColor(.white)
             .multilineTextAlignment(.center)
             .onAppear { self.locationManager.requestAlwaysAuthorization() }
+            .onChange(of: self.locationManager.speedThreshold, perform: { _ in
+                UIAccessibility.post(
+                    notification: .announcement,
+                    argument: String(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed)
+                )
+            })
         }
     }
 }

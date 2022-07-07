@@ -13,6 +13,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var authorizationStatus: CLAuthorizationStatus
     /// Publishes the last speed received, measured in kilometers per hour
     @Published var speed: Double
+    /// Publishes the latest big change in speed registered.
+    @Published var speedThreshold: Double = 0
     
     private let locationManager: CLLocationManager
     
@@ -27,6 +29,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         self.locationManager = locationManager
         self.authorizationStatus = locationManager.authorizationStatus
         self.speed = speed
+        self.speedThreshold = speed
         
         super.init()
         
@@ -49,5 +52,7 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let metersPerSecond = locations.last?.speed ?? 0
         self.speed = metersPerSecond * 3.600
+        // If there is a speed change of 10 kmh, we update the threshold:
+        if abs(self.speedThreshold - self.speed) >= 10 { self.speedThreshold = self.speed }
     }
 }
