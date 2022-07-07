@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    /// Updates the view with dark/light mode changes
+    @Environment(\.colorScheme) var colorScheme
     /// Updates the view with CLLocationManagerDelegate events
     @StateObject var locationManager: LocationManager
     
@@ -52,8 +54,8 @@ struct ContentView: View {
             }
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(.black)
-            .foregroundColor(.white)
+            .background(self.colorScheme == .dark ? .black : .white)
+            .foregroundColor(self.colorScheme == .dark ? .white : .black)
             .multilineTextAlignment(.center)
             .onAppear { self.locationManager.requestAlwaysAuthorization() }
             .onChange(of: self.locationManager.speedThreshold, perform: { _ in
