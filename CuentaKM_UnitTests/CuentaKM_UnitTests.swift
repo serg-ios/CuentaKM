@@ -75,25 +75,48 @@ final class CuentaKM_UnitTests: XCTestCase {
         XCTAssertEqual(speeds, [5, 3.6])
     }
     
+    /// Tests that the threshold speed is updated when the threshold is exceeded
     func testLocationManagerSpeedThreshold_whenSpeedChangesEnough_isUpdated() {
         var cancellables = Set<AnyCancellable>()
         var speedThresholds: [Double] = []
         let mockLocationManager = MockCLLocationManager()
-        let locationManager = LocationManager(locationManager: mockLocationManager, speed: 0)
-        locationManager.$speedThreshold.dropFirst().sink {
+        let locationManager = LocationManager(locationManager: mockLocationManager, speed: 2)
+        locationManager.$speedThreshold.sink {
             speedThresholds.append($0)
         }.store(in: &cancellables)
         mockLocationManager.delegate?.locationManager?(mockLocationManager, didUpdateLocations: [.init(
             coordinate: .init(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: 1, timestamp: .now
         )])
-        XCTAssertEqual(speedThresholds, [])
+        XCTAssertEqual(speedThresholds, [2])
         mockLocationManager.delegate?.locationManager?(mockLocationManager, didUpdateLocations: [.init(
             coordinate: .init(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: 15, timestamp: .now
         )])
-        XCTAssertEqual(speedThresholds, [54])
+        XCTAssertEqual(speedThresholds, [2, 54])
         mockLocationManager.delegate?.locationManager?(mockLocationManager, didUpdateLocations: [.init(
             coordinate: .init(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: 5, timestamp: .now
         )])
-        XCTAssertEqual(speedThresholds, [54, 18])
+        XCTAssertEqual(speedThresholds, [2, 54, 18])
+    }
+    
+    /// Tests that the speed can't be below zero.
+    func testLocationManagerSpeed_whenBelowZero_becomesZero() {
+        var cancellables = Set<AnyCancellable>()
+        var speeds: [Double] = []
+        var speedThresholds: [Double] = []
+        let mockLocationManager = MockCLLocationManager()
+        let locationManager = LocationManager(locationManager: mockLocationManager, speed: -1)
+        locationManager.$speed.sink {
+            speeds.append($0)
+        }.store(in: &cancellables)
+        locationManager.$speedThreshold.sink {
+            speedThresholds.append($0)
+        }.store(in: &cancellables)
+        XCTAssertEqual([0], speeds)
+        XCTAssertEqual([0], speedThresholds)
+        mockLocationManager.delegate?.locationManager?(mockLocationManager, didUpdateLocations: [.init(
+            coordinate: .init(), altitude: 0, horizontalAccuracy: 0, verticalAccuracy: 0, course: 0, speed: -20, timestamp: .now
+        )])
+        XCTAssertEqual([0, 0], speeds)
+        XCTAssertEqual([0], speedThresholds)
     }
 }
