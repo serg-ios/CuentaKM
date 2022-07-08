@@ -20,38 +20,42 @@ struct ContentView: View {
     var body: some View {
         GeometryReader { geometry in
             ScrollView {
-                switch self.locationManager.authorizationStatus {
-                case .authorizedAlways, .authorizedWhenInUse:
-                    VStack {
-                        Text("\(self.locationManager.speed, specifier: "%.1f")")
-                            .font(.system(size: UIFontMetrics.default.scaledValue(for: 150)))
-                            .fontWeight(.heavy)
-                        Text("km/h")
-                            .font(.system(size: UIFontMetrics.default.scaledValue(for: 50)))
-                            .fontWeight(.bold)
+                Group {
+                    switch self.locationManager.authorizationStatus {
+                    case .authorizedAlways, .authorizedWhenInUse:
+                        VStack {
+                            Text("\(self.locationManager.speed, specifier: "%.1f")")
+                                .font(.system(size: UIFontMetrics.default.scaledValue(for: 150)))
+                                .fontWeight(.heavy)
+                            Text("km/h")
+                                .font(.system(size: UIFontMetrics.default.scaledValue(for: 50)))
+                                .fontWeight(.bold)
+                        }
+                        .accessibilityElement(children: .combine)
+                        .accessibilityLabel(NSLocalizedString("speed", comment: ""))
+                        .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
+                    case .denied:
+                        Text("auth_status_denied")
+                            .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                            .accessibilityValue("auth_status_denied")
+                    case .notDetermined:
+                        Text("auth_status_not_determined")
+                            .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                            .accessibilityValue("auth_status_not_determined")
+                    case .restricted:
+                        Text("auth_status_restricted")
+                            .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                            .accessibilityValue("auth_status_restricted")
+                    @unknown default:
+                        let authStatusCode = "\(self.locationManager.authorizationStatus.rawValue)"
+                        Text(NSLocalizedString("auth_status", comment: "") + authStatusCode)
+                            .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
+                            .accessibilityValue("\(self.locationManager.authorizationStatus.rawValue)")
                     }
-                    .accessibilityElement(children: .combine)
-                    .accessibilityLabel(NSLocalizedString("speed", comment: ""))
-                    .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
-                    .frame(minHeight: geometry.size.height)
-                case .denied:
-                    Text("auth_status_denied")
-                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                        .accessibilityValue("auth_status_denied")
-                case .notDetermined:
-                    Text("auth_status_not_determined")
-                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                        .accessibilityValue("auth_status_not_determined")
-                case .restricted:
-                    Text("auth_status_restricted")
-                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                        .accessibilityValue("auth_status_restricted")
-                @unknown default:
-                    Text(NSLocalizedString("auth_status", comment: "") + "\(self.locationManager.authorizationStatus.rawValue)")
-                        .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
-                        .accessibilityValue("\(self.locationManager.authorizationStatus.rawValue)")
                 }
+                .frame(minHeight: geometry.size.height)
             }
+            .scrollIndicators(.hidden, axes: [.horizontal, .vertical])
             .padding(.horizontal)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(self.colorScheme == .dark ? .black : .white)
