@@ -30,6 +30,8 @@ struct ContentView: View {
                         .font(.system(size: UIFontMetrics.default.scaledValue(for: 50)))
                         .fontWeight(.bold)
                 }
+                .lineLimit(1)
+                .minimumScaleFactor(0.1)
                 .accessibilityElement(children: .combine)
                 .accessibilityLabel(NSLocalizedString("speed", comment: ""))
                 .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
@@ -38,10 +40,10 @@ struct ContentView: View {
                         x: .value("id", element.id),
                         y: .value("speed", element.speed)
                     )
-                    .cornerRadius(.infinity)
                 }
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
+                .frame(height: 300)
             case .denied:
                 Text("auth_status_denied")
                     .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
@@ -61,9 +63,7 @@ struct ContentView: View {
                     .accessibilityValue("\(self.locationManager.authorizationStatus.rawValue)")
             }
         }
-        .lineLimit(1)
-        .minimumScaleFactor(0.1)
-        .padding(.horizontal)
+        .padding()
         .background(self.colorScheme == .dark ? .black : .white)
         .foregroundColor(self.colorScheme == .dark ? .white : .black)
         .multilineTextAlignment(.center)
