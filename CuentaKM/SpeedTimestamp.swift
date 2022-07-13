@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SpeedTimestamp: Identifiable {
+struct SpeedTimestamp: Identifiable, Equatable {
     var id: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm:ss"
@@ -15,4 +15,9 @@ struct SpeedTimestamp: Identifiable {
     }
     let speed: Double
     let timestamp: Date
+
+    internal init(speed: Double = 0, timestamp: Date = .now) {
+        self.speed = speed
+        self.timestamp = timestamp
+    }
 }

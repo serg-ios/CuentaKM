@@ -9,9 +9,6 @@ import CoreLocation
 import Foundation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    /// Number of historic samples shown
-    static let samplesCount = 10
-
     /// Publishes the location authorization status to update accordingly the views that observe this location manager
     @Published var authorizationStatus: CLAuthorizationStatus
     /// Publishes the last speed received, measured in kilometers per hour
@@ -22,28 +19,31 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var lastSpeeds: [SpeedTimestamp]
     
     private let locationManager: CLLocationManager
+    private let samplesCount: Int
     
     /// Desired accuracy of the CLLocationManager, is set on init
     var desiredAccuracy: CLLocationAccuracy { self.locationManager.desiredAccuracy }
+    
+    /// For testing purposes, a closure returns the current time. So dates can be injected.
+    var now: () -> Date
     
     init(
         locationManager: CLLocationManager = .init(),
         desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest,
         speed: Double = 0,
-        lastSpeeds: [SpeedTimestamp] = {
-            let now = Date.now
-            var samples = [SpeedTimestamp]()
-            for second in 0..<LocationManager.samplesCount {
-                samples.append(.init(speed: 0, timestamp: now.addingTimeInterval(-Double(second))))
-            }
-            return samples
-        }()
+        now: @escaping () -> Date = { .now },
+        samplesCount: Int = 10,
+        lastSpeeds: [SpeedTimestamp]? = nil
     ) {
         self.locationManager = locationManager
         self.authorizationStatus = locationManager.authorizationStatus
         self.speed = max(0, speed)
         self.speedThreshold = max(0, speed)
-        self.lastSpeeds = lastSpeeds
+        self.now = now
+        self.samplesCount = lastSpeeds?.count ?? samplesCount
+        self.lastSpeeds = lastSpeeds ?? (0..<samplesCount).map {
+            .init(timestamp: now().addingTimeInterval(Double($0 - samplesCount)))
+        }
         
         super.init()
         
@@ -67,12 +67,8 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
         let metersPerSecond = max(0, locations.last?.speed ?? 0)
         self.speed = metersPerSecond * 3.600
         // If there is a speed change of 10 kmh, we update the threshold:
-        if abs(self.speedThreshold - self.speed) >= Double(Self.samplesCount) {
-            self.speedThreshold = self.speed
-        }
-        let samplesCount = lastSpeeds.count
-        self.lastSpeeds = Array(self.lastSpeeds.dropFirst(max(0, samplesCount - Self.samplesCount - 1)))
-        self.lastSpeeds.append(.init(speed: self.speed, timestamp: .now))
-        self.lastSpeeds = lastSpeeds
+        if abs(self.speedThreshold - self.speed) >= Double(self.samplesCount) { self.speedThreshold = self.speed }
+        // The array should always have `self.samplesCount` samples, dropping the eldest.
+        self.lastSpeeds = self.lastSpeeds.dropFirst() + [.init(speed: self.speed, timestamp: self.now())]
     }
 }

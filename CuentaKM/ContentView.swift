@@ -84,7 +84,7 @@ struct ContentView_Previews: PreviewProvider {
             speed: 10,
             lastSpeeds: {
                 let now = Date.now
-                return Array(repeating: 1, count: LocationManager.samplesCount).enumerated().map {
+                return (0..<10).enumerated().map {
                     let speed = Double.random(in: 0...30)
                     let timestamp = now.addingTimeInterval(TimeInterval($0.offset))
                     return SpeedTimestamp(speed: speed, timestamp: timestamp)
