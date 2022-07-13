@@ -40,11 +40,11 @@ struct ContentView: View {
                         x: .value("time", element.formattedTime),
                         y: .value("speed", element.speed)
                     )
-                    .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), element.speed))
                 }
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
                 .frame(height: 300)
+                .accessibilityHidden(true)
             case .denied:
                 Text("auth_status_denied")
                     .accessibilityLabel(NSLocalizedString("auth_status", comment: ""))
