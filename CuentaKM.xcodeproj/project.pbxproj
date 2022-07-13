@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		497F9A2A2878892C00FB161D /* SpeedTimestamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497F9A292878892C00FB161D /* SpeedTimestamp.swift */; };
 		49C72D362874981000665FD0 /* CuentaKMApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D352874981000665FD0 /* CuentaKMApp.swift */; };
 		49C72D382874981000665FD0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C72D372874981000665FD0 /* ContentView.swift */; };
 		49C72D3A2874981100665FD0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C72D392874981100665FD0 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		497F9A292878892C00FB161D /* SpeedTimestamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedTimestamp.swift; sourceTree = "<group>"; };
 		49C72D322874981000665FD0 /* CuentaKM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CuentaKM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C72D352874981000665FD0 /* CuentaKMApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuentaKMApp.swift; sourceTree = "<group>"; };
 		49C72D372874981000665FD0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				49C72D732874F16700665FD0 /* Mocks */,
 				49C72D352874981000665FD0 /* CuentaKMApp.swift */,
+				497F9A292878892C00FB161D /* SpeedTimestamp.swift */,
 				49C72D372874981000665FD0 /* ContentView.swift */,
 				49C72D642874AE3200665FD0 /* LocationManager.swift */,
 				49C72D392874981100665FD0 /* Assets.xcassets */,
@@ -220,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C72D382874981000665FD0 /* ContentView.swift in Sources */,
+				497F9A2A2878892C00FB161D /* SpeedTimestamp.swift in Sources */,
 				49C72D362874981000665FD0 /* CuentaKMApp.swift in Sources */,
 				49C72D652874AE3200665FD0 /* LocationManager.swift in Sources */,
 				49C72D752874F18200665FD0 /* MockCLLocationManager.swift in Sources */,
