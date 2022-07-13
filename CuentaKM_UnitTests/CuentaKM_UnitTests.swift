@@ -119,4 +119,43 @@ final class CuentaKM_UnitTests: XCTestCase {
         XCTAssertEqual([0, 0], speeds)
         XCTAssertEqual([0], speedThresholds)
     }
+    
+    func testLocationManager_whenDefaultInit_generatesTenPastSpeeds() {
+        var cancellables = Set<AnyCancellable>()
+        var speedTimestamps = [SpeedTimestamp]()
+        let now = Date(timeIntervalSince1970: 10)
+        let locationManager = LocationManager(now: { now })
+        locationManager.$lastSpeeds.sink { speedTimestamps = $0 }.store(in: &cancellables)
+        XCTAssertEqual(speedTimestamps, [
+            .init(timestamp: Date(timeIntervalSince1970: 0)),
+            .init(timestamp: Date(timeIntervalSince1970: 1)),
+            .init(timestamp: Date(timeIntervalSince1970: 2)),
+            .init(timestamp: Date(timeIntervalSince1970: 3)),
+            .init(timestamp: Date(timeIntervalSince1970: 4)),
+            .init(timestamp: Date(timeIntervalSince1970: 5)),
+            .init(timestamp: Date(timeIntervalSince1970: 6)),
+            .init(timestamp: Date(timeIntervalSince1970: 7)),
+            .init(timestamp: Date(timeIntervalSince1970: 8)),
+            .init(timestamp: Date(timeIntervalSince1970: 9))
+        ])
+    }
+    
+    func testLocationManagerLastSpeeds_whenLocationUpdated_dropsFirstAndAppendsCurrentSpeedTimestamp() {
+        var cancellables = Set<AnyCancellable>()
+        var speedTimestamps = [SpeedTimestamp]()
+        let now = Date(timeIntervalSince1970: 2)
+        let mockLocationManager = MockCLLocationManager()
+        let locationManager = LocationManager(locationManager: mockLocationManager, now: { now }, lastSpeeds: [
+            .init(timestamp: Date(timeIntervalSince1970: 0)),
+            .init(timestamp: Date(timeIntervalSince1970: 1))
+        ])
+        locationManager.$lastSpeeds.dropFirst().sink { speedTimestamps = $0 }.store(in: &cancellables)
+        mockLocationManager.delegate?.locationManager?(mockLocationManager, didUpdateLocations: [
+            .init(latitude: 0, longitude: 0)
+        ])
+        XCTAssertEqual(speedTimestamps, [
+            .init(timestamp: Date(timeIntervalSince1970: 1)),
+            .init(timestamp: Date(timeIntervalSince1970: 2))
+        ])
+    }
 }
