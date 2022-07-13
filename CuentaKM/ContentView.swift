@@ -37,9 +37,10 @@ struct ContentView: View {
                 .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), self.locationManager.speed))
                 Chart(self.locationManager.lastSpeeds) { element in
                     BarMark(
-                        x: .value("id", element.id),
+                        x: .value("time", element.formattedTime),
                         y: .value("speed", element.speed)
                     )
+                    .accessibilityValue(String(format: NSLocalizedString("kmh", comment: ""), element.speed))
                 }
                 .chartXAxis(.hidden)
                 .chartYAxis(.hidden)
